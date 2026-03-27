@@ -1,1 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Data 
+data/
+!data/.gitkeep
+
+# Temporary / cache
+*.log
+*.tmp
+
+# Large runtime artifacts if needed
+# Uncomment these if repo gets too large:
+# outputs/checkpoints/
+# outputs/models/
