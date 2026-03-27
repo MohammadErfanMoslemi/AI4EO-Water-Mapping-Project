@@ -1,0 +1,12 @@
+{
+  "split_mode": "official",
+  "n_train": 251,
+  "n_val": 88,
+  "n_test": 89,
+  "unmatched_train_rows": 0,
+  "unmatched_val_rows": 0,
+  "unmatched_test_rows": 0,
+  "train_csv": "/content/data/splits/flood_handlabeled/flood_train_data.csv",
+  "val_csv": "/content/data/splits/flood_handlabeled/flood_valid_data.csv",
+  "test_csv": "/content/data/splits/flood_handlabeled/flood_test_data.csv"
+}
