@@ -58,3 +58,76 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+
+Expected data structure
+
+The notebook expects the following local structure:
+
+data/
+├── S2/
+├── Labels/
+└── splits/
+    └── flood_handlabeled/
+Data download
+
+Download the hand-labeled Sentinel-2 chips and labels:
+
+gsutil -m rsync -r gs://sen1floods11/v1.1/data/flood_events/HandLabeled/S2Hand data/S2
+gsutil -m rsync -r gs://sen1floods11/v1.1/data/flood_events/HandLabeled/LabelHand data/Labels
+
+Download the official hand-labeled split files:
+
+mkdir -p data/splits/flood_handlabeled
+gsutil cp gs://sen1floods11/v1.1/splits/flood_handlabeled/flood_train_data.csv data/splits/flood_handlabeled/
+gsutil cp gs://sen1floods11/v1.1/splits/flood_handlabeled/flood_test_data.csv data/splits/flood_handlabeled/
+gsutil cp gs://sen1floods11/v1.1/splits/flood_handlabeled/flood_valid_data.csv data/splits/flood_handlabeled/
+
+If the official split files are not available locally, the notebook can fall back to a reproducible random split with seed 42, but the final reported results used the official split.
+
+How to run
+
+Open:
+
+notebooks/final_benchmark_colab.ipynb
+
+Run the notebook sections in this order:
+
+Install dependencies and create output folders
+Download / verify Sen1Floods11 S2Hand and LabelHand data
+Download / verify official split CSVs
+Core utilities and split loading
+NDWI and MNDWI baselines
+13-band Random Forest baseline
+Corrected 13-band U-Net
+Final comparison table
+Qualitative comparison figure
+Main saved outputs
+
+The notebook saves the main outputs under outputs/:
+
+outputs/tables/model_comparison.csv
+outputs/figures/qualitative_comparison_manual.png
+outputs/metrics/ndwi_test_metrics.json
+outputs/metrics/mndwi_test_metrics.json
+outputs/metrics/rf13_test_metrics.json
+outputs/metrics/unet_fixed_noaug_test_metrics.json
+outputs/history/unet_fixed_noaug_history.csv
+
+Additional per-image outputs and threshold curves are also saved in outputs/tables/ and outputs/figures/.
+
+Notes on implementation
+
+A key correction in the final project was fixing a bug in the earlier U-Net training code. In the final implementation, AdamW is created once outside the batch loop and reused correctly throughout training. The corrected rerun is the only U-Net result used in the final report.
+
+Reproducing the final report artifacts
+
+The final report uses:
+
+outputs/tables/model_comparison.csv
+outputs/figures/qualitative_comparison_manual.png
+
+These are generated automatically by the notebook once all models have been evaluated.
+
+Data licensing
+
+This repository contains only code, derived figures, and derived metric tables. It does not redistribute Sen1Floods11 imagery or labels. Please consult the original dataset repository and paper for citation and usage terms.
