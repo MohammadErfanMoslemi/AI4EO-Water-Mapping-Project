@@ -1,1 +1,11 @@
-
+numpy
+pandas
+matplotlib
+rasterio
+scikit-learn
+tqdm
+joblib
+torch
+torchvision
+jupyter
+notebook
